@@ -4,10 +4,6 @@ on:
     - cron: "35 7 * * *"   # <=== 7:35am
     - cron: "50 15 * * *"   # <=== 3:50pm
     - cron: "44 17 * * *"   # <=== 3:50pm
-
-
-  push:
-    branches: [ main ]
 jobs:
   playwright:
     name: 'Playwright Tests'
