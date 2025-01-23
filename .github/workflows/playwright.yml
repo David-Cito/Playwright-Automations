@@ -1,9 +1,7 @@
 name: Playwright Tests
 on:
   schedule:
-    - cron: "35 7 * * *"   # <=== 7:35am
-    - cron: "50 15 * * *"   # <=== 3:50pm
-    - cron: "46 17 * * *"   # <=== 5:44pm
+    - cron: "49 17 * * *"   # <=== 5:49pm
 jobs:
   playwright:
     name: 'Playwright Tests'
