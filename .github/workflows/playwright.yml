@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: "35 7 * * *"   # <=== 7:35am
     - cron: "50 15 * * *"   # <=== 3:50pm
-    - cron: "44 17 * * *"   # <=== 3:50pm
+    - cron: "46 17 * * *"   # <=== 5:44pm
 jobs:
   playwright:
     name: 'Playwright Tests'
