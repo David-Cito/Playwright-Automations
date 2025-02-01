@@ -14,7 +14,12 @@ test('test', async ({ page }) => {
   //Clock in button click
   //await page.locator('#timecard_advanced_mode_submit').first().click();
 
+  //Verify Clock out button is visible
+  //await expect(page.locator('#timecard_submit')).toContainText('Clock Out');
+
+  await expect(page.getByRole('button', { name: 'Clock Out' })).toBeVisible({ timeout: 50_000 });
+
   //Clock out button click
-  await page.getByRole('button', { name: 'Clock Out' }).click();
+  //await page.getByRole('button', { name: 'Clock Out' }).click();
   //await page.locator('#timecard_advanced_mode_submit').click();
 })

@@ -114,3 +114,30 @@ export function New_employee(first_name, last_name, island, job_title) {
   };
 }
 
+export const pop_ups = [
+  {
+    name:'Pop-up 1',
+    locator:'#border-8416e5e3-537d-32f1-672f-02ffa0cc65cc'
+  },
+  {
+    name:'Pop-up 2',
+    locator:'#border-3768a2b2-9d3b-2752-9a63-733cad3c65cc'
+  },
+  {
+    name:'Pop-up 3',
+    locator:'#border-2014469a-0f98-0d26-91df-7672dd8ffd61'
+  }
+];
+
+/* export function check_and_close_pop_ups( current_page, pop_up_list) {
+  for (let i = 0; i < pop_up_list.length; i++) {
+    pop_up_list.forEach(element => {
+       if (expect(current_page.locator(element.locator)).toBeVisible()) {
+        current_page.locator(element.locator).click()
+      } 
+    });
+  }
+} */
+/* await expect(page.getByText('Welcome')).toBeVisible();
+current_page.locator(element.locator).toBeVisible() */
+

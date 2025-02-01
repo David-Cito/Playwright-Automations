@@ -5,10 +5,10 @@ import { company_address_book, job_titles, New_employee } from '../Test-modules/
 import { new_hires } from '../Inputs/Dash-Input';
 
 
-
-test('test', async ({ page }) => {
-
-  //Open Dash and Login
+new_hires.forEach(({ first_name, last_name }) => {
+  // You can also do it with test.describe() or with multiple tests as long the test name is unique.
+  test(`testing with ${first_name}`, async ({ page }) => {
+    //Open Dash and Login
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/User/Login.aspx');
   await page.getByPlaceholder('Company ID').click();
   await page.getByPlaceholder('Company ID').fill('72474');
@@ -105,4 +105,5 @@ test('test', async ({ page }) => {
 
     await page.locator("button:has-text('OK')").nth(0).click();
     await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active'); */
-  })
+  });
+});
