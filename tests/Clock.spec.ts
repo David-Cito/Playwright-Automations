@@ -38,7 +38,10 @@ test('test', async ({ browser }) => {
   //Verify Clock out button is visible
   //await expect(pageOne.locator('#timecard_submit')).toContainText('Clock Out');
 
-  await expect(pageTwo.getByRole('button', { name: 'Clock Out' })).toBeVisible({ timeout: 50_000 });
+  //await expect(pageTwo.getByRole('button', { name: 'Clock Out' })).toBeVisible({ timeout: 50_000 });
+  
+  await pageTwo.getByRole('button', { name: 'Clock Out' }).click();
+
 
   //Clock out button click
   //await pageOne.getByRole('button', { name: 'Clock Out' }).click();
