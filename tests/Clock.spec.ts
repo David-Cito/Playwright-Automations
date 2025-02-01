@@ -17,10 +17,11 @@ test('test', async ({ browser }) => {
   await pageOne.getByTestId('currentPasswordInput').click();
   await pageOne.getByTestId('currentPasswordInput').fill('Jwy2djwy2d@#!$');
   await pageOne.getByTestId('passwordVerificationContinueButton').click();
-  test.setTimeout(150_000);
   const pageTwo = await context.newPage()
   await pageTwo.goto('https://accounts.intuit.com/app/sign-in?app_group=QBTime&asset_alias=Intuit.qbshared.tsheets&redirect_uri=https%3A%2F%2Ftsheets.intuit.com#w_timecard');
   await pageTwo.reload();
+  await pageTwo.reload();
+
   //await pageOne.goto('https://tsheets.intuit.com/#w_timecard');
 
   // Time clock Login
