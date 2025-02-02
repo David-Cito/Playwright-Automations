@@ -15,7 +15,7 @@ const useBC = !!process.env.BROWSERCAT_API_KEY;
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  //testDir: './tests',
   /* Run tests in files in parallel */
   timeout: 1000 * 60,
   workers: useBC ? 10 : isCI ? 1 : '50%',
