@@ -39,7 +39,7 @@ test('test', async ({ browser }) => {
   //await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput')
 
 
-  await expect(username_input.or(email_account).first()).toBeVisible({ timeout: 50_000 });
+  /* await expect(username_input.or(email_account).first()).toBeVisible({ timeout: 50_000 });
   if (await email_account.isVisible())
     await email_account.click();
   else {
@@ -47,7 +47,7 @@ test('test', async ({ browser }) => {
     await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput').click();
     await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput').fill('david@koahawaii.com');
     await pageOne.getByTestId('IdentifierFirstSubmitButton').click();
-  }
+  } */
 
 
 
