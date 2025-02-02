@@ -12,8 +12,8 @@ test('test', async ({ browser }) => {
 
   //await pageOne.context().storageState({ path: AuthFile });
 
+  await pageOne.context().storageState({ path: "../Playwright-Automations/auth.json" });
 
-  await context.clearCookies();
   /* await pageOne.screenshot({ path: 'screenshot-tab-one.png' })
   await pageTwo.screenshot({ path: 'screenshot-tab-two.png' }) */
 
@@ -64,15 +64,19 @@ test('test', async ({ browser }) => {
   //Password Input 
   await pageOne.getByTestId('currentPasswordInput').fill('Jwy2djwy2d@#!$');
   await pageOne.getByTestId('passwordVerificationContinueButton').click();
+
+  const clock_in_button = pageOne.getByRole('button', { name: 'Clock In' }).locator('nth=1');
   
   //Clock in button click
   //await pageOne.locator('#timecard_advanced_mode_submit').first().click();
 
   //Verify Clock out button is visible
-  //await expect(pageOne.locator('#timecard_submit')).toContainText('Clock Out');
+  await expect(clock_in_button).toContainText('Clock In', { timeout : 50_000 });
+
+  //await expect(pageOne.locator('#timecard_submit')).toContainText('Clock In', { timeout? : 50_000 });
 
   //await expect(pageOne.getByRole('button', { name: 'Clock Out' })).toBeVisible({ timeout: 50_000 });
-  await expect(pageOne.getByRole('button', { name: 'Clock In' }).locator('nth=1')).toBeVisible({ timeout: 50_000 });
+  //await expect(pageOne.getByRole('button', { name: 'Clock In' }).locator('nth=1')).toBeVisible({ timeout: 50_000 });
 
 
   await browser.close();
