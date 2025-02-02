@@ -27,14 +27,38 @@ test('test', async ({ browser }) => {
 
   //await pageOne.goto('https://tsheets.intuit.com/#w_timecard');
 
-  // Time clock Login
+  // Time clock URL
   await pageOne.goto('https://accounts.intuit.com/app/sign-in?app_group=QBTime&asset_alias=Intuit.qbshared.tsheets&redirect_uri=https%3A%2F%2Ftsheets.intuit.com#w_timecard');
   
-  /* await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput').click();
-  await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput').fill('david@koahawaii.com');
-  await pageOne.getByTestId('IdentifierFirstSubmitButton').click();
+  //Login in Username Scenarios
+  const username_input = pageOne.getByTestId('IdentifierFirstInternationalUserIdInput');
+
+  const email_account = pageOne.getByTestId('AccountChoiceButton_0');
+
+  //await pageOne.getByTestId('AccountChoiceButton_0').click();
+  //await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput')
+
+
+  await expect(username_input.or(email_account).first()).toBeVisible({ timeout: 50_000 });
+  if (await email_account.isVisible())
+    await email_account.click();
+  else {
+    await username_input.click();
+    await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput').click();
+    await pageOne.getByTestId('IdentifierFirstInternationalUserIdInput').fill('david@koahawaii.com');
+    await pageOne.getByTestId('IdentifierFirstSubmitButton').click();
+  }
+
+
+
+
+
+
+  
+
+  //Password Input 
   await pageOne.getByTestId('currentPasswordInput').fill('Jwy2djwy2d@#!$');
-  await pageOne.getByTestId('passwordVerificationContinueButton').click(); */
+  await pageOne.getByTestId('passwordVerificationContinueButton').click();
   
   //Clock in button click
   //await pageOne.locator('#timecard_advanced_mode_submit').first().click();
@@ -43,7 +67,7 @@ test('test', async ({ browser }) => {
   //await expect(pageOne.locator('#timecard_submit')).toContainText('Clock Out');
 
   //await expect(pageOne.getByRole('button', { name: 'Clock Out' })).toBeVisible({ timeout: 50_000 });
-  await expect(pageOne.getByRole('button', { name: 'Clock In' }).locator('nth=-1')).toBeVisible({ timeout: 50_000 });
+  await expect(pageOne.getByRole('button', { name: 'Clock In' }).locator('nth=1')).toBeVisible({ timeout: 50_000 });
 
 
   await browser.close();
