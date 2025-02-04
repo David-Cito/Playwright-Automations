@@ -5,7 +5,7 @@ import { company_address_book, job_titles, New_employee } from '../Test-modules/
 import { new_hires } from '../Inputs/Dash-Input';
 
 
-test.use({ storageState: "C:/Users/DavidCito-Rodrigues/Desktop/Playwright-Automations/auth-states/dash-auth.json"});
+test.use({ storageState: './auth-states/dash-auth.json'});
 
 
 
