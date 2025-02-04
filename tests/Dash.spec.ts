@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { new_hires } from '../Inputs/Dash-Input';
 
 
-//test.use({ storageState: '../Auth-states/dash-auth.json'});
+//test.use({ storageState: '../playwright/.auth/dash-auth.json'});
 
 
 
@@ -23,7 +23,7 @@ new_hires.forEach(( employee ) => {
   await page.getByPlaceholder('Password').press('Enter'); */
 
   //Set Storage State
-  await page.context().storageState({ path: '../Auth-states/dash-auth.json' });
+  //await page.context().storageState({ path: '../Auth-states/dash-auth.json' });
 
   //Save and close pop window
   const pop_up_1 = page.locator('#border-2db5fdf1-621d-0e49-a4df-09de01b7a0f8');
