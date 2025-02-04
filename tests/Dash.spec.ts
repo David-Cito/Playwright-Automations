@@ -5,39 +5,43 @@ import { company_address_book, job_titles, New_employee } from '../Test-modules/
 import { new_hires } from '../Inputs/Dash-Input';
 
 
+test.use({ storageState: "../auth-states/dash-auth.json"});
 
-test('test', async ({ page }) => {
 
-  //Open Dash and Login
+
+
+new_hires.forEach(( employee ) => {
+  // You can also do it with test.describe() or with multiple tests as long the test name is unique.
+  test(`Dash Automation for ${employee.first_name}`, async ({ page }) => {
+    //Open Dash and Login
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/User/Login.aspx');
-  await page.getByPlaceholder('Company ID').click();
+  /* await page.getByPlaceholder('Company ID').click();
   await page.getByPlaceholder('Company ID').fill('72474');
-
-  //Variable print test
-  //await page.getByPlaceholder('Company ID').fill(employee.FLN_email); 
 
   await page.getByPlaceholder('Company ID').press('Tab');
   await page.getByPlaceholder('User Name').fill('davidc');
   await page.getByPlaceholder('User Name').press('Tab');
   await page.getByPlaceholder('Password').fill('Jwy2djwy2d');
-  await page.getByPlaceholder('Password').press('Enter');
+  await page.getByPlaceholder('Password').press('Enter'); */
 
-  //Variable print test
-  //await page.getByPlaceholder('Company ID').fill(employee.FLN_email); 
+  //Set Storage State
+  //await page.context().storageState({ path: '../dash-auth.json' });
+
+  //Save and close pop window
+  const pop_up_1 = page.locator('#border-2db5fdf1-621d-0e49-a4df-09de01b7a0f8');
 
 
-  //Close Pop Up Windows
-  /* await page.locator('#border-8416e5e3-537d-32f1-672f-02ffa0cc65cc').click();
-  await page.locator('#border-3768a2b2-9d3b-2752-9a63-733cad3c65cc').click();
-  await page.locator('#border-2014469a-0f98-0d26-91df-7672dd8ffd61').click();
-  */
-
+  if (await pop_up_1.isVisible({ timeout: 50_000 })) {
+    await pop_up_1.click();
+  }
 
    //Add New Employee Page
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aAddEmployee.aspx');
 
+  await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
+
   //First Name
-  await page.locator('#ctl00_ContentPlaceHolder1_txtFName').click();
+/* await page.locator('#ctl00_ContentPlaceHolder1_txtFName').click();
   await page.locator('#ctl00_ContentPlaceHolder1_txtFName').fill(employee.first_name);
 
   //Last Name
@@ -55,7 +59,7 @@ test('test', async ({ page }) => {
 
   //Job Title
   await page.locator('#ctl00_ContentPlaceHolder1_ddlJobTitle_Input').click();
-  await page.getByText(job_titles.Asbestos_Manger).first().click();
+  await page.getByText(employee.job_title).first().click();
 
   //Street Address
   await page.locator('#ctl00_ContentPlaceHolder1_txtAddress').click();
@@ -83,17 +87,17 @@ test('test', async ({ page }) => {
 
   //Email
   await page.locator('#ctl00_ContentPlaceHolder1_ctl13_RegionCountyComboBox_Input').press('Tab');
-  await page.locator('#ctl00_ContentPlaceHolder1_txtEmail').fill(employee.FLN_email);
+  await page.locator('#ctl00_ContentPlaceHolder1_txtEmail').fill(employee.FLN_email());
 
   //Save Employee
-  await page.getByRole('button', { name: 'Save'}).first().click();
+  await page.getByRole('button', { name: 'Save'}).first().click(); */
 
   //Send Employee Password Reset
-  await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active');
+  /* await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active');
   await page.getByAltText('Filter Name column').click();
   await page.getByAltText('Filter Name column').fill(employee.last_name);
   await page.getByAltText('Filter Name column').press('Enter');
-  await page.getByRole('link', { name: 'Edit' }).first().click();
+  await page.getByRole('link', { name: 'Edit' }).first().click(); */
 
 
   /* await page.getByRole('button', { name: 'Reset Password' }).first().click();
@@ -105,4 +109,5 @@ test('test', async ({ page }) => {
 
     await page.locator("button:has-text('OK')").nth(0).click();
     await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active'); */
-  })
+  });
+});

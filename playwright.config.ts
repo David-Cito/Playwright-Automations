@@ -1,8 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-
-const isCI = !!process.env.CI;
-const useBC = !!process.env.BROWSERCAT_API_KEY;
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -34,7 +30,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    storageState: './auth.json',
+    //storageState: './auth.json',
 
     //Screenshot
     screenshot: 'on',

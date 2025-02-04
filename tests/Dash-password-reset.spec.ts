@@ -5,22 +5,23 @@ import { company_address_book, job_titles, New_employee } from '../Test-modules/
 import { new_hires } from '../Inputs/Dash-Input';
 
 
-new_hires.forEach(({ first_name, last_name }) => {
+new_hires.forEach(( employee ) => {
   // You can also do it with test.describe() or with multiple tests as long the test name is unique.
-  test(`testing with ${first_name}`, async ({ page }) => {
+  test(`testing with ${employee.first_name}`, async ({ page }) => {
     //Open Dash and Login
-  await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/User/Login.aspx');
+  await page.context().storageState({ path: '../auth.json' });
+  /* await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/User/Login.aspx');
   await page.getByPlaceholder('Company ID').click();
-  await page.getByPlaceholder('Company ID').fill('72474');
+  await page.getByPlaceholder('Company ID').fill('72474'); */
 
   //Variable print test
   //await page.getByPlaceholder('Company ID').fill(employee.FLN_email); 
 
-  await page.getByPlaceholder('Company ID').press('Tab');
+  /* await page.getByPlaceholder('Company ID').press('Tab');
   await page.getByPlaceholder('User Name').fill('davidc');
   await page.getByPlaceholder('User Name').press('Tab');
   await page.getByPlaceholder('Password').fill('Jwy2djwy2d');
-  await page.getByPlaceholder('Password').press('Enter');
+  await page.getByPlaceholder('Password').press('Enter'); */
 
   //Variable print test
   //await page.getByPlaceholder('Company ID').fill(employee.FLN_email); 
@@ -55,7 +56,7 @@ new_hires.forEach(({ first_name, last_name }) => {
 
   //Job Title
   await page.locator('#ctl00_ContentPlaceHolder1_ddlJobTitle_Input').click();
-  await page.getByText(job_titles.Asbestos_Manger).first().click();
+  await page.getByText(employee.job_title).first().click();
 
   //Street Address
   await page.locator('#ctl00_ContentPlaceHolder1_txtAddress').click();
@@ -83,17 +84,17 @@ new_hires.forEach(({ first_name, last_name }) => {
 
   //Email
   await page.locator('#ctl00_ContentPlaceHolder1_ctl13_RegionCountyComboBox_Input').press('Tab');
-  await page.locator('#ctl00_ContentPlaceHolder1_txtEmail').fill(employee.FLN_email);
+  await page.locator('#ctl00_ContentPlaceHolder1_txtEmail').fill(employee.FLN_email());
 
   //Save Employee
   await page.getByRole('button', { name: 'Save'}).first().click();
 
   //Send Employee Password Reset
-  await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active');
+  /* await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active');
   await page.getByAltText('Filter Name column').click();
   await page.getByAltText('Filter Name column').fill(employee.last_name);
   await page.getByAltText('Filter Name column').press('Enter');
-  await page.getByRole('link', { name: 'Edit' }).first().click();
+  await page.getByRole('link', { name: 'Edit' }).first().click(); */
 
 
   /* await page.getByRole('button', { name: 'Reset Password' }).first().click();
