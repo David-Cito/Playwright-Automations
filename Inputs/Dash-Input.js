@@ -27,13 +27,13 @@ export const new_hires = Employee_list.map((employee) =>
 
 //new_hires.forEach((employee) => console.log(JSON.stringify(employee)));
 
-let object_print = JSON.stringify(new_hires[0]);
+//let object_print = JSON.stringify(new_hires[0]);
 
 //new_hires[0].FN_email()
 
 
 
-console.log(object_print);
+//console.log(object_print);
 
 
 
