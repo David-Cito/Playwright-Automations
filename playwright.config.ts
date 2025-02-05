@@ -1,5 +1,16 @@
 import { defineConfig, devices } from '@playwright/test';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+
+const __dirname = path.dirname(__filename); // get the name of the directory
+
+//console.log(__dirname);
+
+const authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
+
 //import path from 'path';
 
 //const Authfile = path.resolve(__dirname, '../../playwright/.auth/dash-auth.json')
@@ -51,7 +62,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         // Use prepared auth state.
-        storageState: 'playwright/.auth/user.json',
+        storageState: authFile,
       },
     },
     {
@@ -60,7 +71,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         // Use prepared auth state.
-        storageState: 'playwright/.auth/dash-auth.json',
+        storageState: authFile,
       },
       dependencies: ['setup'],
     }

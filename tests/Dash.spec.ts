@@ -40,7 +40,9 @@ new_hires.forEach(( employee ) => {
    //Add New Employee Page
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aAddEmployee.aspx');
 
-  await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible({ timeout: 20_000 });
+  //await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('#aspnetForm')).toContainText('Logout');
+
 
   //First Name
 /* await page.locator('#ctl00_ContentPlaceHolder1_txtFName').click();

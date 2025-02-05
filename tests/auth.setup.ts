@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 //console.log(__dirname);
 
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
+const authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
 
 setup(' dash authenticate', async ({ page }) => {
 
@@ -31,7 +31,9 @@ setup(' dash authenticate', async ({ page }) => {
   //await page.waitForURL('https://dash-ngs.net/NextGear/Enterprise/Module/User/uPostLogin.aspx');
 
   // Alternatively, you can wait until the page reaches a state where all cookies are set.
-  await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
+  //await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
+  await expect(page.locator('#aspnetForm')).toContainText('Logout');
+
 
   //await expect(page.getByRole('button', { name: 'View profile and more' })).toBeVisible();
 
