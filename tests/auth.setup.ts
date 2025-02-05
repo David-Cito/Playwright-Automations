@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 //console.log(__dirname);
 
-const authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
+const authFile = path.join(__dirname, '/../playwright/.auth/dash-auth.json');
 
 setup(' dash authenticate', async ({ page }) => {
 
