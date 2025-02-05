@@ -56,15 +56,15 @@ export default defineConfig({
     // Setup project
     { name: 'setup', testMatch: /.*\.setup\.ts/ },
 
-    {
-      name: 'chromium',
+    //{
+      //name: 'chromium',
       //testMatch: 'dash.spec.ts' ,
-      use: {
-        ...devices['Desktop Chrome'],
+      //use: {
+        //...devices['Desktop Chrome'],
         // Use prepared auth state.
-        storageState: authFile,
-      },
-    },
+        //storageState: authFile,
+      //},
+    //},
     {
       name: 'chromium',
       testMatch: 'dash.spec.ts' ,
