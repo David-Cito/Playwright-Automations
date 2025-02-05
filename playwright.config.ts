@@ -9,7 +9,9 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 //console.log(__dirname);
 
-const authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
+const dash_authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
+
+const encircle_authFile = path.join(__dirname, '../playwright/.auth/encircle-auth.json');
 
 //import path from 'path';
 
@@ -54,8 +56,8 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     // Setup project
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
-
+    { name: 'dash-setup', testMatch: '*dash-auth.setup*.ts' },
+    { name: 'encircle-setup', testMatch: '*encircle-auth.setup*.ts' },
     //{
       //name: 'chromium',
       //testMatch: 'dash.spec.ts' ,
@@ -65,52 +67,33 @@ export default defineConfig({
         //storageState: authFile,
       //},
     //},
+    /* {
+      name: 'chromium',
+      testMatch: '*dash@(.spec).ts' ,
+      use: devices['Desktop Chrome'],
+    }, */
     {
       name: 'chromium',
-      testMatch: 'dash.spec.ts' ,
+      use: devices['Desktop Chrome'],
+    },
+    {
+      name: 'chromium - Dash',
+      testMatch: '*dash@(.spec).ts' ,
       use: {
         ...devices['Desktop Chrome'],
         // Use prepared auth state.
-        storageState: authFile,
+        storageState: dash_authFile,
       },
-      dependencies: ['setup'],
-    }
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-  ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
-});
+      dependencies: ['dash-setup'],
+    },
+    {
+      name: 'Chromium - Encircle',
+      testMatch: '*encircle@(.spec).ts' ,
+      use: {
+        ...devices['Desktop Chrome'],
+        // Use prepared auth state.
+        storageState: encircle_authFile,
+      },
+      dependencies: ['encircle-setup'],
+    },
+]});
