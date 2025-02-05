@@ -33,14 +33,14 @@ new_hires.forEach(( employee ) => {
   const pop_up_1 = page.locator('#border-2db5fdf1-621d-0e49-a4df-09de01b7a0f8');
 
 
-  if (await pop_up_1.isVisible({ timeout: 50_000 })) {
+  if (await pop_up_1.isVisible({ timeout: 15_000 })) {
     await pop_up_1.click();
   }
 
    //Add New Employee Page
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aAddEmployee.aspx');
 
-  await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible({ timeout: 20_000 });
 
   //First Name
 /* await page.locator('#ctl00_ContentPlaceHolder1_txtFName').click();
