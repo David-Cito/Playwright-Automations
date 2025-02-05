@@ -7,11 +7,11 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 
 const __dirname = path.dirname(__filename); // get the name of the directory
 
-console.log(__dirname);
+console.log('current directory',__dirname);
 
 const authFile = path.join(__dirname, '../../playwright/.auth/dash-auth.json');
 
-console.log(authFile);
+console.log('Authfile',authFile);
 
 setup(' dash authenticate', async ({ page }) => {
 
