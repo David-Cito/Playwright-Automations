@@ -1,4 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
+
+//import path from 'path';
+
+//const Authfile = path.resolve(__dirname, '../../playwright/.auth/dash-auth.json')
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -29,8 +33,8 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    storageState: './playwright/.auth/dash-auth.json',
+    trace: 'on',
+    //storageState: './playwright/.auth/dash-auth.json',
 
     //Screenshot
     screenshot: 'on',
@@ -38,10 +42,28 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      //testMatch: 'dash.spec.ts' ,
+      use: {
+        ...devices['Desktop Chrome'],
+        // Use prepared auth state.
+        storageState: 'playwright/.auth/user.json',
+      },
     },
+    {
+      name: 'chromium',
+      testMatch: 'dash.spec.ts' ,
+      use: {
+        ...devices['Desktop Chrome'],
+        // Use prepared auth state.
+        storageState: 'playwright/.auth/dash-auth.json',
+      },
+      dependencies: ['setup'],
+    }
 
     // {
     //   name: 'firefox',
