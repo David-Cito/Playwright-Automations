@@ -11,6 +11,8 @@ console.log(__dirname);
 
 const authFile = path.join(__dirname, '../../playwright/.auth/dash-auth.json');
 
+console.log(authFile);
+
 setup(' dash authenticate', async ({ page }) => {
 
   // Dash Login
