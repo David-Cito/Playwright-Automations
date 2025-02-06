@@ -33,7 +33,7 @@ setup(' Encircle authenticate', async ({ page }) => {
 
   // Alternatively, you can wait until the page reaches a state where all cookies are set.
   //await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'User Settings' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'User Settings' })).toBeVisible({ timeout: 15_000 });
 
   //await expect(page.getByRole('button', { name: 'View profile and more' })).toBeVisible();
 

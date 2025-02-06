@@ -2,12 +2,10 @@ import { test, expect } from '@playwright/test';
 
 import { new_hires } from '../Inputs/Dash-Input';
 
-import path from 'path';
-
 //test.use({ storageState: path.resolve(__dirname, '../playwright/.auth/dash-auth.json') });
 
 
-//test.use({ storageState: '../playwright/.auth/dash-auth.json'});
+//test.use({ storageState: dash_authFile});
 
 
 

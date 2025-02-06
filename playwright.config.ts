@@ -9,9 +9,9 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 //console.log(__dirname);
 
-const dash_authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
+export const dash_authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json');
 
-const encircle_authFile = path.join(__dirname, '../playwright/.auth/encircle-auth.json');
+export const encircle_authFile = path.join(__dirname, '../playwright/.auth/encircle-auth.json');
 
 //import path from 'path';
 
@@ -39,7 +39,6 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -71,12 +70,32 @@ export default defineConfig({
       name: 'chromium',
       testMatch: '*dash@(.spec).ts' ,
       use: devices['Desktop Chrome'],
-    }, */
+      }, */
     {
       name: 'chromium',
-      use: devices['Desktop Chrome'],
+      testMatch: '*encircle@(.spec).ts',
+      dependencies: ['encircle-setup'],
+      use: {
+        storageState: encircle_authFile,
+      },
     },
     {
+      name: 'chromium',
+      testMatch: '*dash@(.spec).ts',
+      dependencies: ['dash-setup'],
+      use: {
+        storageState: dash_authFile,
+      },
+    },
+    /* {
+      name: 'chromium - Dash',
+      //testMatch: '*dash@(.spec).ts',
+      dependencies: ['dash-setup'],
+      use: {
+        storageState: dash_authFile,
+      },
+    }, */
+    /* {
       name: 'chromium - Dash',
       testMatch: '*dash@(.spec).ts' ,
       use: {
@@ -85,8 +104,8 @@ export default defineConfig({
         storageState: dash_authFile,
       },
       dependencies: ['dash-setup'],
-    },
-    {
+    }, */
+    /* {
       name: 'Chromium - Encircle',
       testMatch: '*encircle@(.spec).ts' ,
       use: {
@@ -95,5 +114,5 @@ export default defineConfig({
         storageState: encircle_authFile,
       },
       dependencies: ['encircle-setup'],
-    },
+    }, */
 ]});
