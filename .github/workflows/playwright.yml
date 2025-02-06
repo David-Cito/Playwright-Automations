@@ -14,9 +14,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-       run: npx playwright install --with-deps
+      run: npx playwright install --with-deps
     - name: Install OTP Auth
-       run: npm install otpauth
+      run: npm install otpauth
     - name: Run Playwright tests
       run: npx playwright test Clock-testing.spec.ts
     - uses: actions/upload-artifact@v4
