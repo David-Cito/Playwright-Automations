@@ -1,6 +1,26 @@
 import { test, expect } from '@playwright/test';
 
+//import path from 'path';
+
+//import * as fs from 'node:fs/promises';
+
 import { MailSlurp } from 'mailslurp-client';
+
+//import { fileURLToPath } from 'url';
+
+
+// NEED TO ATTACH SCREENSHOT TO EMAIL
+// SET  UP TIMING WITH FREE AWS SCHEDULE ACCOUNT
+
+/* const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+
+const __dirname = path.dirname(__filename); // get the name of the directory
+
+console.log('current directory',__dirname);
+
+const imagePath = path.join(__dirname, '../listing-to-buy.png');
+
+console.log('image path',imagePath); */
 
 
 
@@ -12,7 +32,7 @@ test('test', async ({ page }) => {
   /* await page.screenshot({ path: 'screenshot-tab-one.png' })
   await pageTwo.screenshot({ path: 'screenshot-tab-two.png' }) */
 
-  // Intuit Account login
+  // Stubhub Account login
   await page.goto('https://www.stubhub.com/still-woozy-honolulu-tickets-2-14-2025/event/156772869/?quantity=0');
 
   //await page.goto('https://www.stubhub.com/still-woozy-brisbane-tickets-2-12-2025/event/156339898/');
@@ -27,7 +47,7 @@ test('test', async ({ page }) => {
 
   let current_prices = [];
 
-  let max_price = 294;
+  let max_price = 160;
 
   let event_name = 'Still Woozy';
 
@@ -39,9 +59,12 @@ test('test', async ({ page }) => {
     let price = parseInt(str.slice(1));
     //log it to the console
     if (price<=max_price){
-      console.log( `${price} is less than or equal to ${max_price}`);
-      await page.screenshot({ path: "listing-to-buy.png" });
-       // create a new instance with your api key
+      //console.log( `${price} is less than or equal to ${max_price}`);
+      // upload attachments to mailslurp
+
+
+
+      // create a new instance with your api key
       const mailslurp = new MailSlurp({ apiKey: "5d626f06d9f5112aa575c8e324215d582d7e72ce495f4f52a87f24aaf5b39dba" });
       //console.log('Authfile',authFile);
     
@@ -54,15 +77,21 @@ test('test', async ({ page }) => {
         }
       });
 
-      expect(inboxWithMailSlurpDomain.domain).toEqual('mailslurp.biz');          
-      // send an email from the inbox to itself
+
+  
+
+      expect(inboxWithMailSlurpDomain.domain).toEqual('mailslurp.biz'); 
+
       const sent = await mailslurp.inboxController.sendEmailAndConfirm({
       inboxId: inboxWithMailSlurpDomain.id,
       sendEmailOptions: {
         to: ['david.cito808@gmail.com'],
-        subject: `Buy ${event_name} ticket for $${price}`,
-        body: `Your ${event_name} tickets are on sale for ${price}`
-        }
+        subject: `Tickets for ${event_name} are now $${price}`,
+        isHTML: true,
+        //attachments: [fileBase64Encoded],
+        useInboxName: true,
+        body: `Tickets for ${event_name} are now $${price}`,
+      }
       });
       expect(sent.id).toBeTruthy()
       console.log(sent.id);
@@ -72,7 +101,7 @@ test('test', async ({ page }) => {
 
   }
 
-  console.log(current_prices)
+  //console.log('current prices:',current_prices);
   //close the browser
   await page.close();
 

@@ -1,8 +1,30 @@
 import { test, expect } from '@playwright/test';
 
+import path from 'path';
+
+import * as fs from 'node:fs/promises';
+
 //npm i --save mailslurp-client
 
 import { MailSlurp } from 'mailslurp-client';
+
+import { fileURLToPath } from 'url';
+
+
+// NEED TO ATTACH SCREENSHOT TO EMAIL
+// SET  UP TIMING WITH FREE AWS SCHEDULE ACCOUNT
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+
+const __dirname = path.dirname(__filename); // get the name of the directory
+
+console.log('current directory',__dirname);
+
+const imagePath = path.join(__dirname, '../listing-to-buy.png');
+
+console.log('image path',imagePath);
+
+const inboxId = '6ffad337-69ef-4e63-bc49-1a1b3a5af114';
 
 
 test('test', async ({ page }) => {
@@ -13,8 +35,23 @@ test('test', async ({ page }) => {
   //console.log('Authfile',authFile);
 
   //Create an inbox
-  const inbox = await mailslurp.inboxController.createInboxWithDefaults();
-  expect(inbox.emailAddress).toContain('@mailslurp')
+  //const inbox = await mailslurp.inboxController.createInboxWithDefaults();
+  //expect(inbox.emailAddress).toContain('@mailslurp')
+
+  const fileBase64Encoded = await fs.readFile(imagePath, {
+          encoding: 'base64',
+        });
+  
+  const body = `<!DOCTYPE html>
+  <html lang="en">
+      <body>
+          <p>Check out my <strong>inline</strong> chihuahua</p>
+          <p><img src="cid:${fileBase64Encoded}" alt="ticket-screenshot" width="300" height="300"></p>
+      </body>
+  </html>`;
+
+  const inbox = await mailslurp.getInbox(inboxId);
+  expect(inbox.id).toEqual(inboxId);
 
 
   // send an email from the inbox to itself
@@ -23,7 +60,9 @@ test('test', async ({ page }) => {
   sendEmailOptions: {
     to: ['david.cito808@gmail.com'],
     subject: 'Test email',
-    body: 'Hello from MailSlurp'
+    isHTML: true,
+    attachments: [fileBase64Encoded],
+    body,
     }
   });
   expect(sent.id).toBeTruthy()

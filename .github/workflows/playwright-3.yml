@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Event Ticket Pricing
 on:
   #schedule:
         #- cron: "*/5 * * * *"   # every 5 mins
