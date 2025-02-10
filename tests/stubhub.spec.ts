@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-import * as OTPAuth from "otpauth";
-
 import { MailSlurp } from 'mailslurp-client';
 
 
