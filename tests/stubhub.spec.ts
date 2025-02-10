@@ -85,7 +85,7 @@ test('test', async ({ page }) => {
       const sent = await mailslurp.inboxController.sendEmailAndConfirm({
       inboxId: inboxWithMailSlurpDomain.id,
       sendEmailOptions: {
-        to: ['david.cito808@gmail.com'],
+        to: ['david@koahawaii.com'],
         subject: `Tickets for ${event_name} are now $${price}`,
         isHTML: true,
         //attachments: [fileBase64Encoded],
