@@ -41,6 +41,10 @@ setup(' Intuit Authenticate', async ({ page }) => {
     await username_input.fill('david@koahawaii.com');
     await page.getByTestId('IdentifierFirstSubmitButton').click();
     }
+  
+  await page.getByTestId('currentPasswordInput').click();
+  await page.getByTestId('currentPasswordInput').fill('Jwy2djwy2d@#!$');
+  await page.getByTestId('passwordVerificationContinueButton').click();
 
   // Wait until the page receives the cookies.
   //
@@ -51,7 +55,7 @@ setup(' Intuit Authenticate', async ({ page }) => {
 
   // Alternatively, you can wait until the page reaches a state where all cookies are set.
   //await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Hello David!' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Hello David!' })).toBeVisible({ timeout: 15_000 });
 
 
   //await expect(page.getByRole('button', { name: 'View profile and more' })).toBeVisible();

@@ -1,41 +1,45 @@
 import { test, expect } from '@playwright/test';
 
-import * as OTPAuth from "otpauth";
+//npm i --save mailslurp-client
 
-/* import path from 'path';
-import { fileURLToPath } from 'url';
-
-
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-
-const __dirname = path.dirname(__filename); // get the name of the directory
-
-console.log('current directory',__dirname);
-
-const authFile = path.join(__dirname, '../../playwright-automation/playwright/.auth/intuit-auth.json');
-
-//"C:\Users\DavidCito-Rodrigues\Documents\GitHub\playwright-automation\playwright\.auth\intuit-auth.json"
-
-console.log('Authfile',authFile);
-
-test.use({ storageState: authFile }); */
+import { MailSlurp } from 'mailslurp-client';
 
 
 test('test', async ({ page }) => {
-
+  
+  
+  // create a new instance with your api key
+  const mailslurp = new MailSlurp({ apiKey: "5d626f06d9f5112aa575c8e324215d582d7e72ce495f4f52a87f24aaf5b39dba" });
   //console.log('Authfile',authFile);
+
+  //Create an inbox
+  const inbox = await mailslurp.inboxController.createInboxWithDefaults();
+  expect(inbox.emailAddress).toContain('@mailslurp')
+
+
+  // send an email from the inbox to itself
+  const sent = await mailslurp.inboxController.sendEmailAndConfirm({
+  inboxId: inbox.id,
+  sendEmailOptions: {
+    to: ['david.cito808@gmail.com'],
+    subject: 'Test email',
+    body: 'Hello from MailSlurp'
+    }
+  });
+  expect(sent.id).toBeTruthy()
+  console.log(sent.id);
 
    
   /* await page.screenshot({ path: 'screenshot-tab-one.png' })
   await pageTwo.screenshot({ path: 'screenshot-tab-two.png' }) */
 
   // Intuit Account login
-  await page.goto('https://accounts.intuit.com/app/account-manager/overview');
+  /* await page.goto('https://accounts.intuit.com/app/account-manager/overview');
 
   if (await expect(page.getByTestId('AccountChoiceButton_0')).toBeVisible({ timeout: 15_000 })) {
     page.getByTestId('AccountChoiceButton_0').click();
   }
-
+ */
 
 
   //const email_account = page.getByTestId('AccountChoiceButton_0');
@@ -46,7 +50,7 @@ test('test', async ({ page }) => {
 
 
   // Login Confirmation
-  await expect(page.getByRole('heading', { name: 'Hello David!' })).toBeVisible({ timeout: 15_000 });
+  //await expect(page.getByRole('heading', { name: 'Hello David!' })).toBeVisible({ timeout: 15_000 });
 
 
   //Login in Username Scenarios
@@ -154,7 +158,7 @@ test('test', async ({ page }) => {
   //await page.getByTestId('currentPasswordInput').fill('Jwy2djwy2d@#!$');
   //await page.getByTestId('passwordVerificationContinueButton').click();
 
-  const clock_in_button = page.getByRole('button', { name: 'Clock In' }).locator('nth=1');
+  /* const clock_in_button = page.getByRole('button', { name: 'Clock In' }).locator('nth=1');
   
   //Clock in button click
   //await page.locator('#timecard_advanced_mode_submit').first().click();
@@ -168,7 +172,7 @@ test('test', async ({ page }) => {
   //await expect(page.getByRole('button', { name: 'Clock In' }).locator('nth=1')).toBeVisible({ timeout: 50_000 });
 
 
-  await browser.close();
+  await browser.close(); */
 
   //await pageTwo.getByRole('button', { name: 'Clock Out' }).click();
 

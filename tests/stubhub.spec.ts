@@ -2,23 +2,8 @@ import { test, expect } from '@playwright/test';
 
 import * as OTPAuth from "otpauth";
 
-/* import path from 'path';
-import { fileURLToPath } from 'url';
+import { MailSlurp } from 'mailslurp-client';
 
-
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-
-const __dirname = path.dirname(__filename); // get the name of the directory
-
-console.log('current directory',__dirname);
-
-const authFile = path.join(__dirname, '../../playwright-automation/playwright/.auth/intuit-auth.json');
-
-//"C:\Users\DavidCito-Rodrigues\Documents\GitHub\playwright-automation\playwright\.auth\intuit-auth.json"
-
-console.log('Authfile',authFile);
-
-test.use({ storageState: authFile }); */
 
 
 test('test', async ({ page }) => {
@@ -30,13 +15,94 @@ test('test', async ({ page }) => {
   await pageTwo.screenshot({ path: 'screenshot-tab-two.png' }) */
 
   // Intuit Account login
-  await page.goto('https://accounts.intuit.com/app/account-manager/overview');
+  await page.goto('https://www.stubhub.com/still-woozy-honolulu-tickets-2-14-2025/event/156772869/?quantity=0');
 
-  if (await expect(page.getByTestId('AccountChoiceButton_0')).toBeVisible({ timeout: 15_000 })) {
-    page.getByTestId('AccountChoiceButton_0').click();
+  //await page.goto('https://www.stubhub.com/still-woozy-brisbane-tickets-2-12-2025/event/156339898/');
+
+  
+  await page.getByTestId('quantity-modal').getByLabel('Number of tickets').selectOption('1');
+  await page.getByRole('button', { name: 'Continue' }).click();
+
+  const listings = page.locator("[data-listing-id]");
+
+  const listings_count = await listings.count();
+
+  let current_prices = [];
+
+  let max_price = 294;
+
+  let event_name = 'Still Woozy';
+
+
+  for (let i=0; i<listings_count; i++) {
+    //get the text of the quote
+    //text = await quotes.nth(i).textContent();
+    let str = await listings.nth(i).getAttribute('data-price');
+    let price = parseInt(str.slice(1));
+    //log it to the console
+    if (price<=max_price){
+      console.log( `${price} is less than or equal to ${max_price}`);
+      await page.screenshot({ path: "listing-to-buy.png" });
+       // create a new instance with your api key
+      const mailslurp = new MailSlurp({ apiKey: "5d626f06d9f5112aa575c8e324215d582d7e72ce495f4f52a87f24aaf5b39dba" });
+      //console.log('Authfile',authFile);
+    
+      //Create an inbox
+      const inboxWithMailSlurpDomain = await mailslurp.inboxController.createInboxWithOptions({
+        createInboxDto: {
+          // you can specify a mailslurp domain or your own custom one
+          // see https://api.mailslurp.com/available-domains/
+          domainName: 'mailslurp.biz'
+        }
+      });
+
+      expect(inboxWithMailSlurpDomain.domain).toEqual('mailslurp.biz');          
+      // send an email from the inbox to itself
+      const sent = await mailslurp.inboxController.sendEmailAndConfirm({
+      inboxId: inboxWithMailSlurpDomain.id,
+      sendEmailOptions: {
+        to: ['david.cito808@gmail.com'],
+        subject: `Buy ${event_name} ticket for $${price}`,
+        body: `Your ${event_name} tickets are on sale for ${price}`
+        }
+      });
+      expect(sent.id).toBeTruthy()
+      console.log(sent.id);
+    }
+    console.log(`data-price: ${price}`);
+    current_prices.push(price);
+
   }
 
+  console.log(current_prices)
+  //close the browser
+  await page.close();
 
+  /* for (let step = 270; step > 0; step--) {
+    let string = step.toString();
+    string = '$' + string;
+    console.log(string);
+    if (await locator.filter({ hasText: string }).isVisible({ timeout: 10_000 }))
+      {
+      console.log('Ticket price is at $', string);
+      console.log(locator.textContent());
+    }
+    //await expect(locator).toContainText('97', { timeout: 10_000 });
+  }  */
+
+
+  
+ 
+
+
+  //.filter({ hasText: regex}); 
+  //console.log(locator.textContent());
+
+  //await expect(page.locator('#listings-container')).toContainText(\$\b(1?[0-9]{1,2})\b);
+
+
+
+  //await expect(page.locator('#listings-container')).toMatchText("\$\b(1?[0-9]{1,2})\b");
 
   //const email_account = page.getByTestId('AccountChoiceButton_0');
 
@@ -46,7 +112,7 @@ test('test', async ({ page }) => {
 
 
   // Login Confirmation
-  await expect(page.getByRole('heading', { name: 'Hello David!' })).toBeVisible({ timeout: 15_000 });
+  //await expect(page.getByRole('heading', { name: 'Hello David!' })).toBeVisible({ timeout: 15_000 });
 
 
   //Login in Username Scenarios
@@ -154,7 +220,7 @@ test('test', async ({ page }) => {
   //await page.getByTestId('currentPasswordInput').fill('Jwy2djwy2d@#!$');
   //await page.getByTestId('passwordVerificationContinueButton').click();
 
-  const clock_in_button = page.getByRole('button', { name: 'Clock In' }).locator('nth=1');
+  /* const clock_in_button = page.getByRole('button', { name: 'Clock In' }).locator('nth=1');
   
   //Clock in button click
   //await page.locator('#timecard_advanced_mode_submit').first().click();
@@ -168,7 +234,7 @@ test('test', async ({ page }) => {
   //await expect(page.getByRole('button', { name: 'Clock In' }).locator('nth=1')).toBeVisible({ timeout: 50_000 });
 
 
-  await browser.close();
+  await browser.close(); */
 
   //await pageTwo.getByRole('button', { name: 'Clock Out' }).click();
 

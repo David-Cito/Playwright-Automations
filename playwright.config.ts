@@ -13,7 +13,7 @@ const dash_authFile = path.join(__dirname, '../playwright/.auth/dash-auth.json')
 
 const encircle_authFile = path.join(__dirname, '../playwright/.auth/encircle-auth.json');
 
-const intuit_authFile = path.join(__dirname, '../playwright/.auth/intuit-auth.json');
+const intuit_authFile = path.join(__dirname, '../playwright-automation/playwright/.auth/intuit-auth.json');
 
 //import path from 'path';
 
@@ -94,11 +94,24 @@ export default defineConfig({
     {
       name: 'chromium',
       testMatch: '*Clock-testing@(.spec).ts',
-      /* dependencies: ['intuit-setup'],
+      dependencies: ['intuit-setup'],
       use: {
         storageState: intuit_authFile,
-      }, */
+      },
     },
+    {
+      name: 'chromium',
+      testMatch: '*mail-slurp@(.spec).ts',
+    },
+    {
+      name: 'chromium',
+      testMatch: '*stubhub@(.spec).ts',
+    },
+    /* {
+      name: 'chromium',
+      testMatch: '*Clock-testing@(.spec).ts',
+      dependencies: ['--no-deps'],
+    }, */
     /* {
       name: 'chromium - Dash',
       //testMatch: '*dash@(.spec).ts',

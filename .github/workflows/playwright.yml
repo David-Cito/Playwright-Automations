@@ -1,6 +1,6 @@
 name: Playwright Tests
 on:
-  schedule:
+  #schedule:
         - cron: "30 21 * * *"   # <=== 7:30am
 jobs:
   test:
