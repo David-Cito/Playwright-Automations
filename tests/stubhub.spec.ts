@@ -47,7 +47,7 @@ test('test', async ({ page }) => {
 
   let current_prices = [];
 
-  let max_price = 160;
+  let max_price = 165;
 
   let event_name = 'Still Woozy';
 
@@ -85,7 +85,7 @@ test('test', async ({ page }) => {
       const sent = await mailslurp.inboxController.sendEmailAndConfirm({
       inboxId: inboxWithMailSlurpDomain.id,
       sendEmailOptions: {
-        to: ['david@koahawaii.com'],
+        to: ['david.cito808@gmail.com'],
         subject: `Tickets for ${event_name} are now $${price}`,
         isHTML: true,
         //attachments: [fileBase64Encoded],
