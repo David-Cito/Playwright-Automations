@@ -2,7 +2,7 @@ import { company_address_book, job_titles, New_employee } from '../Test-modules/
 
 
 const Employee_list = [
-  ["test","dash","Oahu",job_titles.Assistant_Accountant,],
+  ["test","dash","Oahu",job_titles.Assistant_Accountant,'2/11/25'],
 ];
 
 /* const Employee_list = [
@@ -14,10 +14,9 @@ const Employee_list = [
 ]; */
 
 //Employee_list.forEach((employee) => console.log(employee[0],employee[1],employee[2],employee[3]));
-
 export const new_hires = Employee_list.map((employee) => 
-  
-  new New_employee(employee[0],employee[1],employee[2],employee[3]));
+
+  new New_employee(employee[0],employee[1],employee[2],employee[3],employee[4]));
 
 //const new_hires = Employee_list.map((employee) => New_employee(employee[0],employee[1],employee[2],employee[3]));
 
