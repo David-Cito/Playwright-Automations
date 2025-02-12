@@ -15,25 +15,19 @@ new_hires.forEach(( employee ) => {
   test(`Dash Automation for ${employee.first_name}`, async ({ page }) => {
     //Open Dash and Login
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/User/Login.aspx');
-  /* await page.getByPlaceholder('Company ID').click();
-  await page.getByPlaceholder('Company ID').fill('72474');
-
-  await page.getByPlaceholder('Company ID').press('Tab');
-  await page.getByPlaceholder('User Name').fill('davidc');
-  await page.getByPlaceholder('User Name').press('Tab');
-  await page.getByPlaceholder('Password').fill('Jwy2djwy2d');
-  await page.getByPlaceholder('Password').press('Enter'); */
 
   //Set Storage State
   //await page.context().storageState({ path: '../Auth-states/dash-auth.json' });
 
   //Save and close pop window
   const pop_up_1 = page.locator('#border-2db5fdf1-621d-0e49-a4df-09de01b7a0f8');
+  const pop_up_2 =page.locator('#border-e44b9967-5654-8a32-af0f-ee252621f07e');
 
+  if (await pop_up_2.isVisible())
+    await pop_up_2.click();
 
-  if (await pop_up_1.isVisible({ timeout: 15_000 })) {
+  if (await pop_up_1.isVisible())
     await pop_up_1.click();
-  }
 
    //Add New Employee Page
   await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aAddEmployee.aspx');
@@ -43,7 +37,7 @@ new_hires.forEach(( employee ) => {
 
 
   //First Name
-/* await page.locator('#ctl00_ContentPlaceHolder1_txtFName').click();
+  await page.locator('#ctl00_ContentPlaceHolder1_txtFName').click();
   await page.locator('#ctl00_ContentPlaceHolder1_txtFName').fill(employee.first_name);
 
   //Last Name
@@ -92,24 +86,13 @@ new_hires.forEach(( employee ) => {
   await page.locator('#ctl00_ContentPlaceHolder1_txtEmail').fill(employee.FLN_email());
 
   //Save Employee
-  await page.getByRole('button', { name: 'Save'}).first().click(); */
+  await page.getByRole('button', { name: 'Save'}).first().click();
 
-  //Send Employee Password Reset
-  /* await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active');
-  await page.getByAltText('Filter Name column').click();
-  await page.getByAltText('Filter Name column').fill(employee.last_name);
-  await page.getByAltText('Filter Name column').press('Enter');
-  await page.getByRole('link', { name: 'Edit' }).first().click(); */
+  //await expect(page.getByText('New employee created')).toBeVisible({ timeout: 10_000 });
 
+  
+  await expect(page.getByText('Employee details updated')).toBeVisible({ timeout: 20_000 });
 
-  /* await page.getByRole('button', { name: 'Reset Password' }).first().click();
-  page.on("dialog", async (alert) => {
-    const text = alert.message(); 
-    console.log(text);;
-    await alert.dismiss();
-    })
-
-    await page.locator("button:has-text('OK')").nth(0).click();
-    await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/Admin/aEmployee.aspx?N=Active'); */
+  await page.close();
   });
 });

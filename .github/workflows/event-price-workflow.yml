@@ -7,7 +7,6 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
@@ -15,7 +14,7 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run 2nd Playwright test
+    - name: Run Event Price test
       run: npx playwright test stubhub.spec.ts
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}

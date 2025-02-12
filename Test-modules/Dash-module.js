@@ -1,10 +1,4 @@
-// Export the variable
-export const myVariable = 42;
 
-// Export a function
-export function myFunction() {
-  console.log("Hello from myFunction!");
-}
 
 export const company_address_book = [
   {name:"Oahu",
@@ -46,7 +40,7 @@ export const company_address_book = [
   ];
 
 export const job_titles = {
-  Assistant_Acountant: 'ADMINISTRATIVE ASSISTANT ACCT',
+  Assistant_Accountant: 'ADMINISTRATIVE ASSISTANT ACCT',
   BDM: 'BUSINESS DEVELOPMENT MANAGER',
   Chairman: 'CHAIRMAN',
   C3: 'CLIENT CARE COORDINARTOR',
@@ -97,13 +91,14 @@ export const job_titles = {
 
 };
 
-export function New_employee(first_name, last_name, island, job_title) {
+export function New_employee(first_name, last_name, island, job_title, start_date) {
   this.first_name = first_name;
   this.last_name = last_name;
   this.island = island;
   this.office_location = company_address_book.find(({ name }) => name === this.island);
   this.job_title = job_title;
   this.username = this.first_name + "." + this.last_name;
+  this.start_date = start_date;
 
   this.FN_email = function() {
     return this.first_name + "@" + this.office_location.email_suffix + ".com";

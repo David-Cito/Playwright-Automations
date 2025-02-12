@@ -93,6 +93,14 @@ export default defineConfig({
     },
     {
       name: 'chromium',
+      testMatch: 'dash-password-reset@(.spec).ts',
+      dependencies: ['dash-setup'],
+      use: {
+        storageState: dash_authFile,
+      },
+    },
+    {
+      name: 'chromium',
       testMatch: '*Clock-testing@(.spec).ts',
       dependencies: ['intuit-setup'],
       use: {

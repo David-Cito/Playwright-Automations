@@ -25,7 +25,8 @@ new_hires.forEach(( employee ) => {
     await expect(page.getByText(employee.FLN_email())).toBeVisible({ timeout: 15_000 }); */
 
 
-  
+    await page.close();
+    
 
   });
 });

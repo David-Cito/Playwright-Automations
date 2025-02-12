@@ -211,6 +211,7 @@ test('test', async ({ page }) => {
   //await expect(page.getByRole('button', { name: 'Clock In' }).locator('nth=1')).toBeVisible({ timeout: 50_000 });
 
 
+    await pop_up_2.click();
   await browser.close(); */
 
   //await pageTwo.getByRole('button', { name: 'Clock Out' }).click();
