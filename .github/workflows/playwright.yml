@@ -1,7 +1,7 @@
 name: Playwright Tests
-on:
+#on:
   #schedule:
-        - cron: "30 21 * * *"   # <=== 7:30am
+        #- cron: "30 21 * * *"   # <=== 7:30am
 jobs:
   test:
     timeout-minutes: 60
