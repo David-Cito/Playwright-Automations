@@ -1,6 +1,6 @@
 name: Playwright Tests
-on:
-  push:
+#on:
+  #push:
     #branches: [ main ]
 jobs:
   test:
@@ -16,7 +16,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Encircle Automation
-      run: npx playwright test encircle.spec.ts
+      #run: npx playwright test encircle.spec.ts
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
