@@ -24,21 +24,29 @@ const imagePath = path.join(__dirname, '../listing-to-buy.png');
 
 console.log('image path',imagePath);
 
-const inboxId = '6ffad337-69ef-4e63-bc49-1a1b3a5af114';
+const inboxId = 'fe2b7c12-7941-44a9-ade7-e7cd9bd5b782';
 
 
 test('test', async ({ page }) => {
   
-  
+  await page.goto('https://dash-ngs.net/NextGear/Enterprise/Module/User/Login.aspx');
+
+  console.log('test start');
   // create a new instance with your api key
   const mailslurp = new MailSlurp({ apiKey: "5d626f06d9f5112aa575c8e324215d582d7e72ce495f4f52a87f24aaf5b39dba" });
   //console.log('Authfile',authFile);
+
+  /* const inbox = await mailslurp.inboxController.createInbox({
+    emailAddress: 'new.hires@mailslurp.biz',
+  }) */
+
+
 
   //Create an inbox
   //const inbox = await mailslurp.inboxController.createInboxWithDefaults();
   //expect(inbox.emailAddress).toContain('@mailslurp')
 
-  const fileBase64Encoded = await fs.readFile(imagePath, {
+  /* const fileBase64Encoded = await fs.readFile(imagePath, {
           encoding: 'base64',
         });
   
@@ -48,14 +56,33 @@ test('test', async ({ page }) => {
           <p>Check out my <strong>inline</strong> chihuahua</p>
           <p><img src="cid:${fileBase64Encoded}" alt="ticket-screenshot" width="300" height="300"></p>
       </body>
-  </html>`;
+  </html>`; */
 
   const inbox = await mailslurp.getInbox(inboxId);
   expect(inbox.id).toEqual(inboxId);
 
+  console.log('inbox id:',inboxId);
+
+  // Wait for an email to arrive at an inbox or return first found result
+  const email = await mailslurp.waitForLatestEmail(
+    inboxId,
+    20_000
+  );
+  const email_text = email.body.replace(/<[^>]*>/g, '');
+  // use a regex in code to extract the content
+  console.log('email body:',email_text);
+  /* const r = /href="(https[^"]+)"/gs;
+  const results = r.exec(email.body!!)!!;
+  const url = decodeURIComponent(results[1]);
+  console.log('results',results);
+  console.log('url',url); */
+
+  // now you can use the verification code
+  //expect(url).toBeTruthy();
+
 
   // send an email from the inbox to itself
-  const sent = await mailslurp.inboxController.sendEmailAndConfirm({
+  /* const sent = await mailslurp.inboxController.sendEmailAndConfirm({
   inboxId: inbox.id,
   sendEmailOptions: {
     to: ['david.cito808@gmail.com'],
@@ -66,7 +93,7 @@ test('test', async ({ page }) => {
     }
   });
   expect(sent.id).toBeTruthy()
-  console.log(sent.id);
+  console.log(sent.id); */
 
    
   /* await page.screenshot({ path: 'screenshot-tab-one.png' })
@@ -220,4 +247,6 @@ test('test', async ({ page }) => {
   //Clock out button click
   //await page.getByRole('button', { name: 'Clock Out' }).click();
   //await page.locator('#timecard_advanced_mode_submit').click();
+
+  page.close();
 })

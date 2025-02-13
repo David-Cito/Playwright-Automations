@@ -18,11 +18,11 @@ new_hires.forEach(( employee ) => {
     // await expect(page.getByRole('button', { name: 'User Settings' })).toBeVisible({ timeout: 15_000 });
 
     //Add Employee to Encircle Member list
-    /* await page.locator('div').filter({ hasText: /^Invite Users$/ }).nth(3).click();
+    await page.locator('div').filter({ hasText: /^Invite Users$/ }).nth(3).click();
     await page.getByPlaceholder('Enter email...').click();
     await page.getByPlaceholder('Enter email...').fill(employee.FLN_email());
     await page.locator('.BaseButton').first().click();
-    await expect(page.getByText(employee.FLN_email())).toBeVisible({ timeout: 15_000 }); */
+    await expect(page.getByText(employee.FLN_email())).toBeVisible({ timeout: 15_000 });
 
 
     await page.close();
