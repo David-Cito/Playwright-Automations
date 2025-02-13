@@ -1,6 +1,6 @@
 # Playwright-Automations
 
-This project utilizes the Playwright API to automate tasks for my company's job management software. It is designed to simplify and streamline various automation tasks using Playwright's powerful capabilities.
+This project utilizes the Playwright API and Mailslurp's email API to automate tasks for my company's job management software. It is designed to simplify and streamline various automation tasks using Playwright's powerful capabilities.
 
 ## Table of Contents
 
