@@ -2,7 +2,7 @@ import { company_address_book, job_titles, New_employee } from '../Test-modules/
 
 
 const Employee_list = [
-  ["","","",,'2/24/25'],
+  ["Tyler","Curtis","Oahu",job_titles.Assistant_Accountant,'2/19/25'],
 ];
 
 /* const Employee_list = [

@@ -57,11 +57,11 @@ test('test', async ({ page }) => {
     //text = await quotes.nth(i).textContent();
     let str = await listings.nth(i).getAttribute('data-price');
     let price = parseInt(str.slice(1));
+    console.log(`data-price: ${price}`);
     //log it to the console
     if (price<=max_price){
       //console.log( `${price} is less than or equal to ${max_price}`);
       // upload attachments to mailslurp
-
 
 
       // create a new instance with your api key
@@ -96,7 +96,6 @@ test('test', async ({ page }) => {
       expect(sent.id).toBeTruthy()
       console.log(sent.id);
     }
-    console.log(`data-price: ${price}`);
     current_prices.push(price);
 
   }
